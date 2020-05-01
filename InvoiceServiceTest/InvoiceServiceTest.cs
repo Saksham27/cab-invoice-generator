@@ -13,7 +13,12 @@ namespace InvoiceServiceTest
         [Test]
         public void GivenDistanceAndTime_ShouldReturnTotalFare()
         {
-            
+            InvoiceGenerator invoiceGenerator = new InvoiceGenerator();
+            double distance = 2.0;
+            int time = 5;
+            double fare = invoiceGenerator.CalculateFare(distance, time);
+            double expected = 25;
+            Assert.AreEqual(expected, fare);
         }
     }
 }
