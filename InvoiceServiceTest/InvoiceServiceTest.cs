@@ -31,5 +31,18 @@ namespace InvoiceServiceTest
             double expected = 5;
             Assert.AreEqual(expected, fare);
         }
+
+        [Test]
+        public void GivenMultipleRides_ShouldReturnTotalFare()
+        {
+            InvoiceGenerator invoiceGenerator = new InvoiceGenerator();
+            Ride[] rides = { new Ride(2.0, 5),
+                new Ride(0.1, 1)
+            };
+            double fare = invoiceGenerator.CalculateFare(rides);
+            double expected = 30;
+            Assert.AreEqual(expected, fare);
+
+        }
     }
 }
