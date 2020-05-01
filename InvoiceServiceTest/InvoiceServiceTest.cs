@@ -20,5 +20,16 @@ namespace InvoiceServiceTest
             double expected = 25;
             Assert.AreEqual(expected, fare);
         }
+
+        [Test]
+        public void GivenLessDistanceAndTime_ShouldReturnMinFare()
+        {
+            InvoiceGenerator invoiceGenerator = new InvoiceGenerator();
+            double distance = 0.1;
+            int time = 1;
+            double fare = invoiceGenerator.CalculateFare(distance, time);
+            double expected = 5;
+            Assert.AreEqual(expected, fare);
+        }
     }
 }
