@@ -14,7 +14,7 @@ namespace InvoiceServiceTest
         [Test]
         public void GivenDistanceAndTime_ShouldReturnTotalFare()
         {
-            InvoiceGenerator invoiceGenerator = new InvoiceGenerator();
+            InvoiceService invoiceGenerator = new InvoiceService();
             double distance = 2.0;
             int time = 5;
             double fare = invoiceGenerator.CalculateFare(distance, time);
@@ -25,7 +25,7 @@ namespace InvoiceServiceTest
         [Test]
         public void GivenLessDistanceAndTime_ShouldReturnMinFare()
         {
-            InvoiceGenerator invoiceGenerator = new InvoiceGenerator();
+            InvoiceService invoiceGenerator = new InvoiceService();
             double distance = 0.1;
             int time = 1;
             double fare = invoiceGenerator.CalculateFare(distance, time);
@@ -36,7 +36,7 @@ namespace InvoiceServiceTest
         [Test]
         public void GivenMultipleRides_ShouldReturnTotalFare()
         {
-            InvoiceGenerator invoiceGenerator = new InvoiceGenerator();
+            InvoiceService invoiceGenerator = new InvoiceService();
             string userId = "Saksham";
             Ride firstRide = new Ride(2.0, 5);
             Ride secondRide = new Ride(0.1, 1);
@@ -50,7 +50,7 @@ namespace InvoiceServiceTest
         [Test]
         public void GivenMultipleRides_ShouldReturnInvoiceSummary()
         {
-            InvoiceGenerator invoiceGenerator = new InvoiceGenerator();
+            InvoiceService invoiceGenerator = new InvoiceService();
 
             string userId = "John";
             Ride firstRide = new Ride(3.0, 5);

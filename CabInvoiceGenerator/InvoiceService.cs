@@ -4,7 +4,7 @@ using System.Text;
 
 namespace CabInvoiceGenerator
 {
-    public class InvoiceGenerator
+    public class InvoiceService
     {
        
         private static readonly int costPerTime = 1;
