@@ -48,10 +48,9 @@ namespace InvoiceServiceTest
         }
 
         [Test]
-        public void GivenMultipleRides_ShouldReturnInvoiceSummary()
+        public void GivenUSerId_ShouldReturnInvoiceSummary()
         {
             InvoiceService invoiceGenerator = new InvoiceService();
-
             string userId = "John";
             Ride firstRide = new Ride(3.0, 5);
             Ride secondRide = new Ride(1, 1);
