@@ -42,7 +42,7 @@ namespace InvoiceServiceTest
             Ride secondRide = new Ride(0.1, 1);
             List<Ride> rides = new List<Ride>{ firstRide, secondRide };
             UserAccount.AddRides(userId, rides);
-            InvoiceSummary invoiceSummary =  invoiceGenerator.CalculateFare(userId);
+            InvoiceSummary invoiceSummary =  invoiceGenerator.GetInvoiceSummary(userId);
             double expected = 30;
             Assert.AreEqual(expected, invoiceSummary.TotalFare);
         }
@@ -56,7 +56,7 @@ namespace InvoiceServiceTest
             Ride secondRide = new Ride(1, 1);
             List<Ride> rides = new List<Ride> { firstRide, secondRide };
             UserAccount.AddRides(userId, rides);
-            InvoiceSummary invoiceSummary = invoiceGenerator.CalculateFare(userId);
+            InvoiceSummary invoiceSummary = invoiceGenerator.GetInvoiceSummary(userId);
             InvoiceSummary expected = new InvoiceSummary
             {
                 TotalNumberOfRides = 2,
@@ -64,6 +64,25 @@ namespace InvoiceServiceTest
                 AverageFarePerRide = 23
             };
             object.Equals(expected, invoiceSummary);
+        }
+
+        [Test]
+        public void GivenPremiumRide_ShouldReturnInvoiceSummary()
+        {
+            InvoiceService invoiceGenerator = new InvoiceService();
+            string userId = "John";
+            Ride firstRide = new Ride(3.0, 5, "Premium");
+            Ride secondRide = new Ride(1, 1, "Normal");
+            List<Ride> rides = new List<Ride> { firstRide, secondRide };
+            UserAccount.AddRides(userId, rides);
+            InvoiceSummary invoiceSummary = invoiceGenerator.GetInvoiceSummary(userId);
+            InvoiceSummary expected = new InvoiceSummary
+            {
+                TotalNumberOfRides = 2,
+                TotalFare = 66,
+                AverageFarePerRide = 33
+            };
+            Assert.AreEqual(expected.TotalFare, invoiceSummary.TotalFare);
         }
     }
 }
