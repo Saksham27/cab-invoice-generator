@@ -1,5 +1,6 @@
 using NUnit.Framework;
 using CabInvoiceGenerator;
+using System.Collections.Generic;
 
 namespace InvoiceServiceTest
 {
@@ -36,11 +37,12 @@ namespace InvoiceServiceTest
         public void GivenMultipleRides_ShouldReturnTotalFare()
         {
             InvoiceGenerator invoiceGenerator = new InvoiceGenerator();
-            
-            Ride[] rides = { new Ride(2.0, 5),
-                new Ride(0.1, 1)
-            };
-            InvoiceSummary invoiceSummary =  invoiceGenerator.CalculateFare(rides);
+            string userId = "Saksham";
+            Ride firstRide = new Ride(2.0, 5);
+            Ride secondRide = new Ride(0.1, 1);
+            List<Ride> rides = new List<Ride>{ firstRide, secondRide };
+            UserAccount.AddRides(userId, rides);
+            InvoiceSummary invoiceSummary =  invoiceGenerator.CalculateFare(userId);
             double expected = 30;
             Assert.AreEqual(expected, invoiceSummary.TotalFare);
         }
@@ -49,16 +51,18 @@ namespace InvoiceServiceTest
         public void GivenMultipleRides_ShouldReturnInvoiceSummary()
         {
             InvoiceGenerator invoiceGenerator = new InvoiceGenerator();
-            
-            Ride[] rides = { new Ride(2.0, 5),
-                new Ride(0.1, 1)
-            };
-            InvoiceSummary invoiceSummary = invoiceGenerator.CalculateFare(rides);
+
+            string userId = "John";
+            Ride firstRide = new Ride(3.0, 5);
+            Ride secondRide = new Ride(1, 1);
+            List<Ride> rides = new List<Ride> { firstRide, secondRide };
+            UserAccount.AddRides(userId, rides);
+            InvoiceSummary invoiceSummary = invoiceGenerator.CalculateFare(userId);
             InvoiceSummary expected = new InvoiceSummary
             {
                 TotalNumberOfRides = 2,
-                TotalFare = 30,
-                AverageFarePerRide = 15
+                TotalFare = 46,
+                AverageFarePerRide = 23
             };
             object.Equals(expected, invoiceSummary);
         }
